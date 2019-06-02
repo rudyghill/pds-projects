@@ -1,0 +1,6 @@
+Part 2.1:
+Rudy Hill A+
+
+Part 2.2:
+STUDENT_NAME_LEN:	.word	0x10			# Length of STUDENT_NAME in bytes
+STUDENT_NAME:		.ascii "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xCC\x00\x00\x00"

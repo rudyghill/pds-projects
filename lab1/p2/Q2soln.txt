@@ -1,0 +1,53 @@
+Q2.1.  I'm looking for something like the following -- which doesn't match the assembly code exactly, but in concept it does.
+
+This code copies data from X to Y, looping N (which is 6) times.  Since in C we're using variables, instead of registers, we'll need another temporary variable.  If this were compilable C code, we'd make X, Y, and N global variables.  
+
+
+int X[6] = {5, 3, -6, 19, 8, 12};
+int Y[6] = {0, 0, 0, 0, 0, 0};
+int N = 6;
+
+int i = 0;
+for(i=N-1; i>=0; i--) {
+  Y[i] = X[i];
+}  
+
+
+Q2.2.
+
+993ff915 disassembles as:
+
+break out as binary:
+ 9    9    3    f    f    9    1    5
+1001 1001 0011 1111 1111 1001 0001 0101
+
+Then look at the last 6 bits: 010101 == 0x25. Which we look up and see that's a stw.
+
+We know it's an I-type, so we're looking for:
+ A(5bit)    B(5bit)    IMM16 (16bit)    OP(6bit)
+10011        00100     1111111111100100  010101
+
+A is 19, so r19
+B is 4, so r4
+
+IMM16 is a negative value, so lets find the 2s compliment
+1111111111100100
+0000000000011100 == 28 (meaning, the original number is -28)
+
+So, the answer is:
+ stw r4,-28(r19)
+  
+  
+Q2.3
+
+divu r14,r5,r22 
+
+It's an R-type instruction.
+  A     B     C     OPX  zero    OP
+00101 10110 01110 100100 00000 111010
+
+grouping into 4 bits:
+0010 1101 1001 1101 0010 0000 0011 1010
+ 2    d    9    d    2    0    3    a
+ 
+(or 0x2d9d203a)
