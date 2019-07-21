@@ -2,6 +2,7 @@
 This is a repository of code for the projects in PDS at CU boulder.
 There are 4 folders in this repository named accordingling.
 In each folder there is a pdf describing the requirements.
+Most of the code base is written in Nios II assembly for the DE10 Lite board.
 
 ## Project 1: Basic Assembly and C Programming
 This is a simple project in fullfillment of ECEN3350: Programming of Digital Systems.  For full details read the pdf's.
